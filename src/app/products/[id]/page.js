@@ -1,7 +1,11 @@
-import AddCart from "@/components/AddCart";
 import Image from "next/image";
 import React from "react";
+import dynamic from "next/dynamic";
 
+const AddCart = dynamic(() => import("@/components/Cart/AddCart"), {
+  ssr: false,
+  
+});
 async function getSingleProduct({ params }) {
   console.log(params);
   const res = await fetch(`https://fakestoreapi.com/products/${params.id}`);

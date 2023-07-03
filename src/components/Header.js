@@ -4,11 +4,14 @@ import React, { useEffect, useState } from "react";
 import { signwithGoogle } from "./Login";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useSelector } from "react-redux";
+import Cart from "./Cart/Cart";
 
 function Header() {
   const [userloged, seUserloged] = useState();
   const [item, setitem] = useState("");
+  const [showCart, setshowCart] = useState(false);
   const itemCount = useSelector((state) => state.cart.items.length);
+  console.log(showCart);
   useEffect(() => {
     setitem(itemCount);
   }, [itemCount]);
@@ -18,10 +21,15 @@ function Header() {
       seUserloged(user);
     }
   });
+  const HandOpen = () => {
+    useEffect(() => {
+      setshowCart(true);
+    }, [setshowCart]);
+  };
   const farmattedPhot = userloged?.photoURL?.replace(/\?t=\d+$/, "");
   return (
     <body>
-      <nav className="relative px-4 py-4 container shadow mx-auto flex items-center justify-between bg-white">
+      <nav className=" px-4 py-4 container sticky top-0 shadow shrink z-50 mx-auto flex items-center justify-between bg-white">
         {/* left */}
         <div>
           <svg class="h-10" alt="logo" viewBox="0 0 10240 10240">
@@ -67,7 +75,7 @@ function Header() {
             </div>
           )}
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2" onClick={() => HandOpen}>
             <svg
               fill="#000000"
               version="1.1"
@@ -90,6 +98,8 @@ function Header() {
           </div>
         </div>
       </nav>
+      {/* show side menu */}
+      {showCart && <Cart />}
     </body>
   );
 }
