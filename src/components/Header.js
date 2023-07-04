@@ -4,28 +4,22 @@ import React, { useEffect, useState } from "react";
 import { signwithGoogle } from "./Login";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useSelector } from "react-redux";
-import Cart from "./Cart/Cart";
 
 function Header() {
   const [userloged, seUserloged] = useState();
-  const [item, setitem] = useState("");
-  const [showCart, setshowCart] = useState(false);
-  const itemCount = useSelector((state) => state.cart.items.length);
-  console.log(showCart);
+  const [showMenu, setShowMenu] = useState(false);
+  const itemCount = useSelector((state) => state.cart.itemCount);
+
   useEffect(() => {
-    setitem(itemCount);
-  }, [itemCount]);
+    console.log(itemCount);
+  }, [itemCount]); // Remove `itemCount` from the `deps` array
+
   const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user) {
       seUserloged(user);
     }
   });
-  const HandOpen = () => {
-    useEffect(() => {
-      setshowCart(true);
-    }, [setshowCart]);
-  };
   const farmattedPhot = userloged?.photoURL?.replace(/\?t=\d+$/, "");
   return (
     <body>
@@ -75,7 +69,10 @@ function Header() {
             </div>
           )}
 
-          <div className="flex items-center space-x-2" onClick={() => HandOpen}>
+          <div
+            className="flex items-center space-x-2"
+            onClick={() => setShowMenu(true)}
+          >
             <svg
               fill="#000000"
               version="1.1"
@@ -93,13 +90,23 @@ function Header() {
               </g>
             </svg>
             <h1 className="bg-red-500 animate-pulse rounded-full h-4 w-4 text-center absolute top-2 text-xs">
-              {item}
+              {itemCount}
             </h1>
           </div>
         </div>
       </nav>
       {/* show side menu */}
-      {showCart && <Cart />}
+      {/* {Show && <Cart />} */}
+      <div className="bg-white w-48 shadow-2xl -ml ">
+        <section
+          className={`bg-gray-500  fixed top-0 h-screen z-50  ${
+            showMenu ? "-right-0" : "-right-56"
+          }   p-20 my-10 shadow-2xl w-52 overflow-hidden`}
+        >
+          <h1>hello</h1>
+        </section>
+      </div>
+      {/* {Show && <h1>hello</h1>} */}
     </body>
   );
 }

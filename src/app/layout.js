@@ -1,21 +1,19 @@
-"use client";
 import Header from "@/components/Header";
 import "./globals.css";
-import { Provider } from "react-redux";
-import { store } from "@/store";
+import { Providers } from "@/store/Provider";
 
-// export const metadata = {
-//   title: "Ecommerce UI",
-//   description: "this is for learning nextjs",
-// };
+export const metadata = {
+  title: "Ecommerce UI",
+  description: "this is for learning nextjs",
+};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Provider store={store}>
+      <Providers>
         <Header />
         <body>{children}</body>
-      </Provider>
+      </Providers>
     </html>
   );
 }

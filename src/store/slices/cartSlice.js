@@ -6,12 +6,14 @@ export const cartSlice = createSlice({
   initialState: {
     items: [],
     totalPrice: 0,
+    itemCount: 0,
   },
   reducers: {
     addItem: (state, action) => {
       const item = action.payload;
-      state.items = [...state.items, item]; // Create a new array with the updated items
-      state.totalPrice = state.totalPrice + item.price;
+      state.items = [...state.items, item];
+      state.totalPrice += item.price;
+      state.itemCount += 1; // Increase the item count by 1
     },
   },
 });
