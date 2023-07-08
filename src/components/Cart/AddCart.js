@@ -1,7 +1,6 @@
 "use client";
 import { addItem } from "@/store/slices/cartSlice";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 
 function AddCart({ item }) {
   const dispatch = useDispatch();
@@ -14,7 +13,7 @@ function AddCart({ item }) {
   return (
     <div>
       <button
-        className="mb-14 mt-10 flex h-14 px-3 w-full items-stretch overflow-hidden rounded-md text-gray-500"
+        className="mb-0 mt-10 flex h-14 px-3 w-full items-stretch overflow-hidden rounded-md text-gray-500"
         onClick={handleAddToCart}
       >
         <div className="flex w-full items-center mb-2 bg-emerald-500 text-white text-center justify-center">
